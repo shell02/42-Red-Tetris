@@ -3,14 +3,9 @@ const http = require('http');
 const cors = require('cors');
 const path = require('path');
 const {Server} = require('socket.io');
-const dotenv = require('dotenv');
 
-dotenv.config({ path: path.resolve(__dirname, ".env") });
-
-const port = process.env.PORT || 3001;
-const domains = process.env.DOMAINS
-  ? process.env.DOMAINS.split(",")
-  : ["http://localhost:3000", 'http://localhost:8000'];
+const port = 3001;
+const domains = ["http://localhost:3000"];
 const corsOptions = {
   origin: domains,
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
