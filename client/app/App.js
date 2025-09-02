@@ -1,34 +1,19 @@
-import React from 'react';
-import './App.css';
-import { io } from "socket.io-client";
+import React from "react";
+import { SocketProvider } from "./providers/SocketProvider";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 
 function App() {
-
-  React.useEffect(() => {
-    const socket = io("http://localhost:3001", {
-      withCredentials: true,
-    });
-
-    socket.on("connect", () => {
-      socket.emit("ping-server", socket.id);
-    });
-
-    socket.on("pong-client", () => {
-      console.log("Received pong from server");
-    });
-
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
   return (
-    <div>
-      <header className="app-name">
-        Hello World !
-      </header>
-    </div>
+    <>
+      <SocketProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      </SocketProvider>
+    </>
   );
 }
 
